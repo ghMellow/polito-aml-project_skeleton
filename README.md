@@ -1,1 +1,2 @@
-# Lab03: Setup a project from scratch
+# Skeleton for AML projects
+- - **Repository:** [polito-aml-project_skeleton](https://github.com/ghMellow/polito-aml-project_skeleton)
