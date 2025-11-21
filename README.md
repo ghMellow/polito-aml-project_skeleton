@@ -1,19 +1,19 @@
 # Project Skeleton - Structured ML/DL Project Template
 
-Template di progetto strutturato per Machine Learning/Deep Learning con PyTorch. Implementa best practices per organizzazione, riproducibilità e collaborazione.
+Structured project template for Machine Learning/Deep Learning with PyTorch. Implements best practices for organization, reproducibility, and collaboration.
 
 **Forked from:** `iurada/project-skeleton:main`
 
 ---
 
-## 📁 Struttura del Progetto
+## 📁 Project Structure
 
 ```
 polito-aml-project_skeleton/
 ├── checkpoints/                  # 💾 MODEL CHECKPOINTS (created during training)
-│   ├── .gitkeep                  # Mantiene cartella in git
-│   ├── best_model.pth            # Best model salvato automaticamente (gitignored)
-│   └── checkpoint_epoch_N.pth    # Checkpoint periodici (gitignored)
+│   ├── .gitkeep                  # Keeps folder in git
+│   ├── best_model.pth            # Best model saved automatically (gitignored)
+│   └── checkpoint_epoch_N.pth    # Periodic checkpoints (gitignored)
 │
 ├── data/                         # 📁 DATASET FILES (gitignored - download separately)
 │   ├── .gitkeep
@@ -22,120 +22,127 @@ polito-aml-project_skeleton/
 |
 ├── dataset/                      # 📦 DATASET MODULE
 │   ├── __init__.py               # Exports: CustomImageDataset, create_annotations_csv
-│   └── custom_dataset.py         # PyTorch Dataset class per caricamento dati da CSV
+│   └── custom_dataset.py         # PyTorch Dataset class for data loading from CSV
 │
 ├── models/                       # 🧠 MODELS MODULE
 │   ├── __init__.py               # Exports: create_name_model
-│   └── vgg_finetuning.py         # Architetture modelli
+│   └── vgg_finetuning.py         # Model architectures
 │
 ├── utils/                        # 🛠️ UTILITIES MODULE
 │   ├── __init__.py               # Exports: transforms, visualization, metrics functions
-|   ├── download_dataset.py       # DATASET DOWNLOADER (scarica dataset, es da Kaggle)
-│   ├── transforms.py             # Data augmentation e preprocessing (train/val/test)
-│   ├── visualization.py          # Plotting e visualizzazioni (denormalize, plot curves)
-│   └── metrics.py                # Calcolo metriche e statistiche dataset
+│   ├── download_dataset.py       # DATASET DOWNLOADER (downloads dataset, e.g., from Kaggle)
+│   ├── transforms.py             # Data augmentation and preprocessing (train/val/test)
+│   ├── visualization.py          # Plotting and visualizations (denormalize, plot curves)
+│   └── metrics.py                # Metrics computation and dataset statistics
 │
-├── train.py                      # 🚂 TRAINING SCRIPT (main training loop con CLI)
-├── eval.py                       # 📊 EVALUATION SCRIPT (test set evaluation con CLI)
-├── config.py                     # ⚙️ CONFIGURATION (hyperparameters e settings centrali)
+├── train.py                      # 🚂 TRAINING SCRIPT (main training loop with CLI)
+├── eval.py                       # 📊 EVALUATION SCRIPT (test set evaluation with CLI)
+├── config.py                     # ⚙️ CONFIGURATION (hyperparameters and central settings)
 │
-├── colab_training.ipynb          # 📓 GOOGLE COLAB NOTEBOOK (training su Colab)
+├── colab_training.ipynb          # 📓 GOOGLE COLAB NOTEBOOK (training on Colab)
 ├── requirements.txt              # 📋 PYTHON DEPENDENCIES (pip install -r requirements.txt)
 ├── .gitignore                    # 🚫 GIT IGNORE (data/, checkpoints/*.pth, *.csv, wandb/)
 │
-└── README.md                     
+└── README.md
 ```
 
 ---
 
-## 🎯 Best Practices Implementate
+## 🎯 Implemented Best Practices
 
-✅ **Modularità**: Codice diviso in moduli riutilizzabili
+✅ **Modularity**: Code split into reusable modules
 
-✅ **CLI Interface**: Argparse per tutti gli script
-   - **Cos'è?** Command-Line Interface permette di eseguire gli script da terminale passando parametri come opzioni (es: `--epochs 10 --lr 0.001`)
-   - **Vantaggi:** Non devi modificare il codice per ogni esperimento, tutti i parametri sono configurabili da riga di comando
-   - **Implementazione:** Usa `argparse` in Python per definire tutti gli argomenti disponibili (data_dir, epochs, batch_size, learning rate, ecc.)
+✅ **CLI Interface**: Argparse for all scripts
+
+* **What is it?** Command-Line Interface allows running scripts from the terminal by passing parameters as options (e.g., `--epochs 10 --lr 0.001`)
+* **Benefits:** No need to modify the code for each experiment; all parameters are configurable from the command line
+* **Implementation:** Uses Python’s `argparse` to define all available arguments (data_dir, epochs, batch_size, learning rate, etc.)
 
 ✅ **Reproducibility**: requirements.txt + config.py
-   - **config.py** definisce valori di default e costanti del progetto
-   - **CLI arguments** permettono di sovrascrivere i default senza modificare il codice
-   - I due approcci sono complementari: config.py è il "centro di controllo", CLI dà flessibilità per esperimenti
+
+* **config.py** defines default values and project constants
+* **CLI arguments** allow overriding defaults without code changes
+* The two approaches are complementary: config.py is the “control center,” the CLI provides flexibility for experiments
 
 ✅ **Checkpoint Management**: Auto-save best model
 
 ✅ **Logging**: Wandb integration
 
-✅ **Documentation**: Docstrings + README completo
+✅ **Documentation**: Docstrings + complete README
 
-✅ **Git-friendly**: .gitignore appropriato
+✅ **Git-friendly**: Proper .gitignore
 
-✅ **Data Augmentation**: Solo su train, non su val/test
+✅ **Data Augmentation**: Only on train, not on val/test
 
 ✅ **Separation of Concerns**: train.py vs eval.py
 
 ---
 
-## 🔍 Per AI Assistants
+## 🔍 For AI Assistants
 
-**Questo progetto segue una struttura modulare standard:**
+**This project follows a standard modular structure:**
 
-1. **Dataset Module** (`dataset/`): Gestione caricamento dati
-2. **Models Module** (`models/`): Architetture e model creation
+1. **Dataset Module** (`dataset/`): Data loading management
+2. **Models Module** (`models/`): Architectures and model creation
 3. **Utils Module** (`utils/`): Transforms, visualization, metrics
-4. **Training Script** (`train.py`): Main training loop con CLI
+4. **Training Script** (`train.py`): Main training loop with CLI
 5. **Eval Script** (`eval.py`): Test set evaluation
 6. **Config** (`config.py`): Centralized configuration
 
 **Key Points:**
-- Ogni modulo ha `__init__.py` con exports espliciti
-- CLI scripts usano argparse
-- Training (train/validate/test functions)
-- Checkpoint management automatico
-- Wandb integration opzionale ma completa
-- Transforms: AUGMENTATION solo su train!
 
-**Quando suggerire modifiche:**
-- Aggiungere nuovi modelli → `models/new_model.py`
-- Nuove metriche → `utils/metrics.py`
-- Nuovi datasets → `dataset/new_dataset.py`
-- Training modifications → `train.py` (maintain CLI style)
+* Each module has an `__init__.py` with explicit exports
+* CLI scripts use argparse
+* Training (train/validate/test functions)
+* Automatic checkpoint management
+* Optional but complete Wandb integration
+* Transforms: AUGMENTATION only on train!
+
+**When to suggest modifications:**
+
+* Add new models → `models/new_model.py`
+* New metrics → `utils/metrics.py`
+* New datasets → `dataset/new_dataset.py`
+* Training modifications → `train.py` (keep CLI style)
 
 ---
 
 ## 🤝 Contributing
 
-Per adattare questo skeleton al tuo progetto:
+To adapt this skeleton to your project:
 
-1. **Dataset**: Modifica `dataset/custom_dataset.py` per il tuo formato
-2. **Model**: Aggiungi la tua architettura in `models/`
-3. **Config**: Aggiorna `config.py` con i tuoi parametri
-4. **Training**: Modifica `train.py` se necessario (mantieni CLI)
-5. **Update README**: Documenta le modifiche
+1. **Dataset**: Modify `dataset/custom_dataset.py` for your format
+2. **Model**: Add your architecture in `models/`
+3. **Config**: Update `config.py` with your parameters
+4. **Training**: Modify `train.py` if needed (keep CLI)
+5. **Update README**: Document your changes
 
 ---
 
 ## 🚫 Git Ignore (`.gitignore`)
 
-**Cosa ignora:**
-- `data/` - Dataset (troppo grande, download separato)
-- `checkpoints/*.pth` - Model checkpoints (troppo grandi)
-- `*.csv` - Annotation files (generati automaticamente)
-- `wandb/` - Wandb logs (sincronizzati su cloud)
-- `__pycache__/` - Python cache
-- `.DS_Store` - macOS files
+**What it ignores:**
 
-**Cosa traccia:**
-- Codice sorgente (`.py`)
-- Configurazioni
-- README e docs
-- `.gitkeep` per cartelle vuote
+* `data/` – Dataset (too large, downloaded separately)
+* `checkpoints/*.pth` – Model checkpoints (too large)
+* `*.csv` – Annotation files (generated automatically)
+* `wandb/` – Wandb logs (synced to cloud)
+* `__pycache__/` – Python cache
+* `.DS_Store` – macOS files
+
+**What it tracks:**
+
+* Source code (`.py`)
+* Configurations
+* README and docs
+* `.gitkeep` for empty folders
 
 ---
 
-## 🔄 Workflow Tipico
+## 🔄 Typical Workflow
 
-### 1. Setup Iniziale
+### 1. Initial Setup
+
 ```bash
 git clone <repo-url>
 cd polito-aml-project_skeleton
@@ -144,32 +151,35 @@ python download_dataset.py
 ```
 
 ### 2. Training
+
 ```bash
 # Feature extraction (base frozen)
 python train.py --data_dir ./data --epochs 10 --freeze_base --use_wandb
 
-# Full fine-tuning (tutto trainable)
+# Full fine-tuning (everything trainable)
 python train.py --data_dir ./data --epochs 10 --use_wandb
 ```
 
 ### 3. Evaluation
+
 ```bash
 python eval.py --checkpoint ./checkpoints/best_model.pth --data_dir ./data
 ```
 
 ### 4. Experiments
+
 ```bash
-# Esperimento con LR diverso
+# Experiment with different LR
 python train.py --lr 0.001 --batch_size 64 --use_wandb
 
-# Tutti gli esperimenti tracciati su Wandb!
+# All experiments tracked on Wandb!
 ```
 
 ---
 
-## 📢 Informazioni di rilascio
+## 📢 Release Information
 
-**📅 Ultimo aggiornamento:** Novembre 2025  
-**🏷️ Versione:** v1.0.0 — Prima release stabile
+**📅 Last update:** November 2025
+**🏷️ Version:** v1.0.0 — First stable release
 
-*Per dettagli sui cambiamenti e le correzioni, consulta il changelog nel repository.*
+*For details on changes and fixes, see the changelog in the repository.*
